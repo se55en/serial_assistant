@@ -2,9 +2,17 @@
 #include "delay.h"
 #include "gui.h"
 #include "position.h"
-#define BaudModeNum 4
-u32 Baud[4] = {4800, 9600, 38400, 115200};
+#define BaudModeNum 5
+u32 Baud[BaudModeNum] = {4800, 9600, 38400, 115200, 1500000};
 u8 ShowMode = 0;
+
+//屏幕显示位置坐标
+#define X_MIN 		0
+#define X_MAX 		29
+#define Y1_MIN 		3
+#define Y1_MAX 		10
+#define Y2_MIN 		12
+#define Y2_MAX 		19
 
 u8 x1 = 0, y1 = 3;//2接收的位置坐标
 u8 x2 = 0, y2 = 12;//2接收的位置坐标
@@ -101,43 +109,43 @@ void ChangeBaud(u32 Baud)
 void ClearShow2(void)//清空2号线的接收显示内容
 {
 	u16 cnt = 8*30;
-	x2 = 0;
-	y2 = 12;
+	x2 = X_MIN;
+	y2 = Y2_MIN;
 	while(cnt--)//满了清屏从第一行重新开始显示
 	{
 		MY_ShowChar(X0[x2],Y0[y2],' ');
 		x2++;
-		if(x2 > 29)
+		if(x2 > X_MAX)
 		{
-			x2 = 0;
+			x2 = X_MIN;
 			y2++;
 		}
 	}
-	x2 = 0;
-	y2 = 12;
+	x2 = X_MIN;
+	y2 = Y2_MIN;
 }
 void ClearShow1(void)//清空2号线的接收显示内容
 {
 	u16 cnt = 8*30;
-	x1 = 0;
-	y1 = 3;
+	x1 = X_MIN;
+	y1 = Y1_MIN;
 	while(cnt--)//满了清屏从第一行重新开始显示
 	{
 		MY_ShowChar(X0[x1],Y0[y1],' ');
 		x1++;
-		if(x1 > 29)
+		if(x1 > X_MAX)
 		{
-			x1 = 0;
+			x1 = X_MIN;
 			y1++;
 		}
 	}
-	x1 = 0;//光标移到第一行第一列
-	y1 = 3;
+	x1 = X_MIN;//光标移到第一行第一列
+	y1 = Y1_MIN;
 }
 		
 void MY_KeyScan(void)
 {
-	static u8 BaudMode = 3;
+	static u8 BaudMode = 4;
 	u8 KeyNum = MyKey_GetNum();
 	if(KeyNum != 0)
 	{
@@ -151,7 +159,7 @@ void MY_KeyScan(void)
 					BaudMode = 0;
 				}
 				ChangeBaud(Baud[BaudMode]);
-				LCD_ShowNumRed(X0[15], Y0[1],Baud[BaudMode], 6, 16);
+				LCD_ShowNumRed(X0[15], Y0[1],Baud[BaudMode], 7, 16);
 				break;
 			}
 			case 3:
@@ -184,17 +192,15 @@ void MY_KeyScan(void)
 	}
 }
 
-void Assistant_2ShowBuff(u8* buff, u16 len)
+void Assistant_2ShowBuff(u8* buff, u16 len, u16 show_num)
 {
 	static u8 ClearFlag = 0;
-	u8* p_temp = buff;
 	while(len--)
 	{
 		if(USART3_Flag == 1)
 		{
 			USART3_Flag = 0;
-			x2 = 0;
-			Assistant_2ShowBuff(p_temp, USART3_RecvBuffLen);
+			Assistant_2ShowBuff(buff, USART3_RecvBuffLen-show_num, show_num);
 			break;
 		}
 		if(ClearFlag == 1)
@@ -261,19 +267,18 @@ void Assistant_2ShowBuff(u8* buff, u16 len)
 				}
 			}
 		}
+		show_num++;
 	}
 }
-void Assistant_1ShowBuff(u8* buff, u16 len)
+void Assistant_1ShowBuff(u8* buff, u16 len, u16 show_num)
 {
 	static u8 ClearFlag = 0;
-	u8* p_temp = buff;
 	while(len--)
 	{
 		if(USART1_Flag == 1)
 		{
 			USART1_Flag = 0;
-			x1 = 0;
-			Assistant_1ShowBuff(p_temp, USART1_RecvBuffLen);
+			Assistant_1ShowBuff(buff, USART1_RecvBuffLen-show_num, show_num);
 			break;
 		}
 		if(ClearFlag == 1)
@@ -340,5 +345,6 @@ void Assistant_1ShowBuff(u8* buff, u16 len)
 				}
 			}
 		}
+		show_num++;
 	}
 }

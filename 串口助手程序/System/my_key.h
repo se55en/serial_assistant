@@ -15,9 +15,11 @@ const u16 Y[20]={
 void MyKey_Init(void);
 uint8_t MyKey_GetNum(void);
 void MY_KeyScan(void);
-
-void Assistant_2ShowBuff(u8* buff, u16 len);
-void Assistant_1ShowBuff(u8* buff, u16 len);
+//参数1，显示数组地址
+//参数2，显示长度
+//参数3，已经显示的长度
+void Assistant_2ShowBuff(u8* buff, u16 len, u16 show_num);
+void Assistant_1ShowBuff(u8* buff, u16 len, u16 show_num);
 #endif
 
 

@@ -28,6 +28,7 @@
 .\objects\main.o: .\Library\stm32f10x_usart.h
 .\objects\main.o: .\Library\stm32f10x_wwdg.h
 .\objects\main.o: .\Library\misc.h
+.\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\System\Serial.h
 .\objects\main.o: .\System\delay.h
 .\objects\main.o: .\System\DRIVER_SCREEN.h
