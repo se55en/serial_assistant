@@ -1,96 +1,74 @@
 #include "stm32f10x.h"                  // Device header
-#include "string.h"
-#include "Serial.h"
-#include "delay.h"
-#include "DRIVER_SCREEN.h"
-#include "PC13LED.h"
 
-#include "sys.h"
-#include "delay.h"
-#include "gui.h"
-#include "test.h"
-#include "lcd.h"
+#include "mylcd.h"	//ÆÁÄ»Í·ÎÄ¼ş
+#include "PC13LED.h" 
 
-#include "MY_KEY.h"
-/*
+#include "menu.h"
+#include "myKey.h"
+#include "process.h"
+#include "serial.h"
+#include "mmc_sd.h"
+#include "ff.h"
+#include "mf.h"
+#include "stdio.h"
 
-ä¸²å£1---1å·æ•°æ®çº¿
-ä¸²å£3---2å·æ•°æ®çº¿
-
-*/
-uint8_t Data;
-
+u8 menu2_flag = 0;//×Ó²Ëµ¥±êÖ¾Î» 
+u8 show_menu = 0;//ÏÔÊ¾²Ëµ¥±êÖ¾Î» 
 int main(void)
 {
-	PC13LED_Init();
-	Serial_Init();
-	MyKey_Init();
-//å±å¹•ç›¸å…³åˆå§‹åŒ–
-	DriverScreen_Init();
-	LCD_Control_On();	
-	SystemInit();//åˆå§‹åŒ–RCC è®¾ç½®ç³»ç»Ÿä¸»é¢‘ä¸º72MHZ
-	delay_init(72);	     //å»¶æ—¶åˆå§‹åŒ–
-	LCD_Init();	   //æ¶²æ™¶å±åˆå§‹åŒ–
-	LCD_Clear(BLACK);
-
-	LCD_Fill(0,0,lcddev.width,31,RED);
-	MY_ShowString(X[10], Y[0], "Mode:String");
-	MY_ShowString(X[10], Y[1], "Baud: 115200");
-	MY_ShowString(X[0], Y[2], "1 Send:");
-	MY_ShowString(X[0], Y[11], "2 Send:");
-	LCD_DrawLine(0, Y[11], 240, Y[11]);//åˆ†å‰²çº¿	
+	Serial_Init();//´®¿Ú³õÊ¼»¯
+	
+	myKey_Init();//°´¼ü³õÊ¼»¯
+	myLCD_Power_Init();
+	myLCD_Power_On();//LCD-VCC¹©µç¿ª¹Ø´ò¿ª
+	myLCD_Init();
+	Menu_ShowHead();
+//	mf_test();
 	while(1)
 	{
-		if(USART1_Flag == 1)//æŸ¥çœ‹ä¸²å£æ˜¯å¦æ¥æ”¶åˆ°æ•°æ®
+		process(serial.ProcessMode);//´¦Àí½ÓÊÕÊı¾İ
+
+		while(1)
 		{
-			USART1_Flag = 0;
-			Assistant_1ShowBuff(USART1_RecvBuff, USART1_RecvBuffLen, 0);
-			uart1DmaClear();    // æ¸…ç©ºDMAæ¥æ”¶é€šé“
-//			memset(USART1_RecvBuff, '\0', sizeof(USART1_RecvBuff)); // æ¸…ç©ºæ¥æ”¶ç¼“å†²åŒº
-		} 
-		if(USART3_Flag == 1)
-		{
-			USART3_Flag = 0;
-			Assistant_2ShowBuff(USART3_RecvBuff, USART3_RecvBuffLen, 0);
-			uart3DmaClear();    // æ¸…ç©ºDMAæ¥æ”¶é€šé“
-		} 
-		MY_KeyScan();
+			menu2_flag = Menu();
+			if(menu2_flag == 1)menu2_baud();
+			if(menu2_flag == 2)menu2_showmode();
+			if(menu2_flag == 3)menu2_processmode();
+			if(menu2_flag == 0)break;
+		}
 	}
 }
-
-void USART2_IRQHandler(void)//usart2ä¸­æ–­å‡½æ•°
-{
-	if(USART_GetITStatus(USART2, USART_IT_RXNE) == SET)
-	{
-		Data = USART_ReceiveData(USART2);
-		Serial_USART2_SendByte(Data);
-		//æ‰‹åŠ¨æ¸…é™¤æ ‡å¿—ä½
-		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
-	}
-}
-void USART3_IRQHandler(void)//usart3ä¸­æ–­å‡½æ•°
+void USART1_IRQHandler(void)    // ´®¿Ú1 µÄÖĞ¶Ï´¦Àíº¯Êı
 {
     uint8_t clear;
-    if(USART_GetITStatus(USART3, USART_IT_IDLE) != RESET)   // ç©ºé—²ä¸­æ–­
+    if(USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)   // ¿ÕÏĞÖĞ¶Ï
     {
-        clear = USART3->SR; // æ¸…é™¤ç©ºé—²ä¸­æ–­
-        clear = USART3->DR; // æ¸…é™¤ç©ºé—²ä¸­æ–­
+        clear = USART1->SR; // Çå³ı¿ÕÏĞÖĞ¶Ï
+        clear = USART1->DR; // Çå³ı¿ÕÏĞÖĞ¶Ï
 
-        USART3_Flag = 1;  // ç½®æ¥æ”¶æ ‡å¿—ä½
-        USART3_RecvBuffLen = Recv_Max_Len - DMA_GetCurrDataCounter(DMA1_Channel3);// æ€»çš„bufé•¿åº¦å‡å»å‰©ä½™bufé•¿åº¦ï¼Œå¾—åˆ°æ¥æ”¶åˆ°æ•°æ®çš„é•¿åº¦
+//        serial.USART1_Flag = 1;  // ÖÃ½ÓÊÕ±êÖ¾Î»
+        serial.USART1_RecvBuffLen = Recv_Max_Len - DMA_GetCurrDataCounter(DMA1_Channel5);// ×ÜµÄbuf³¤¶È¼õÈ¥Ê£Óàbuf³¤¶È£¬µÃµ½½ÓÊÕµ½Êı¾İµÄ³¤¶È
+		serial.USART1_NoDisplayLen = serial.USART1_RecvBuffLen - serial.USART1_DisplayLen;
     }   
 }
-
-void USART1_IRQHandler(void)    // ä¸²å£1 çš„ä¸­æ–­å¤„ç†å‡½æ•°
+void USART3_IRQHandler(void)//usart3ÖĞ¶Ïº¯Êı
 {
     uint8_t clear;
-    if(USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)   // ç©ºé—²ä¸­æ–­
+    if(USART_GetITStatus(USART3, USART_IT_IDLE) != RESET)   // ¿ÕÏĞÖĞ¶Ï
     {
-        clear = USART1->SR; // æ¸…é™¤ç©ºé—²ä¸­æ–­
-        clear = USART1->DR; // æ¸…é™¤ç©ºé—²ä¸­æ–­
+        clear = USART3->SR; // Çå³ı¿ÕÏĞÖĞ¶Ï
+        clear = USART3->DR; // Çå³ı¿ÕÏĞÖĞ¶Ï
 
-        USART1_Flag = 1;  // ç½®æ¥æ”¶æ ‡å¿—ä½
-        USART1_RecvBuffLen = Recv_Max_Len - DMA_GetCurrDataCounter(DMA1_Channel5);// æ€»çš„bufé•¿åº¦å‡å»å‰©ä½™bufé•¿åº¦ï¼Œå¾—åˆ°æ¥æ”¶åˆ°æ•°æ®çš„é•¿åº¦
-    }   
+        serial.USART3_RecvBuffLen = Recv_Max_Len - DMA_GetCurrDataCounter(DMA1_Channel3);// ×ÜµÄbuf³¤¶È¼õÈ¥Ê£Óàbuf³¤¶È£¬µÃµ½½ÓÊÕµ½Êı¾İµÄ³¤¶È
+		serial.USART3_NoDisplayLen = serial.USART3_RecvBuffLen - serial.USART3_DisplayLen;
+    }
 }
-
+void USART2_IRQHandler(void)    // ´®¿Ú1 µÄÖĞ¶Ï´¦Àíº¯Êı
+{
+    if(USART_GetITStatus(USART2, USART_IT_TC) != RESET)     // ·¢ËÍÍê³É
+    {
+        USART_ClearITPendingBit(USART2, USART_IT_TC);       // Çå³ıÍê³É±ê¼Ç
+        DMA_Cmd(DMA1_Channel7, DISABLE);                    // ¹Ø±ÕDMA
+        serial.USART2_TxFlag = 1;                              // ÉèÖÃ·¢ËÍÍê³É±êÖ¾Î»
+    }	
+}

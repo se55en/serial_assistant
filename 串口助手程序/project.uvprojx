@@ -133,8 +133,8 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
-            <DriverSelection>4096</DriverSelection>
+            <Capability>0</Capability>
+            <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\FATFS;.\FATFS\source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -651,39 +651,44 @@
           <GroupName>System</GroupName>
           <Files>
             <File>
-              <FileName>Delay.c</FileName>
+              <FileName>delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\Delay.c</FilePath>
+              <FilePath>.\System\delay.c</FilePath>
             </File>
             <File>
-              <FileName>Delay.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\Delay.h</FilePath>
-            </File>
-            <File>
-              <FileName>OLED.c</FileName>
+              <FileName>GUI.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\OLED.c</FilePath>
+              <FilePath>.\System\GUI.c</FilePath>
             </File>
             <File>
-              <FileName>OLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\OLED.h</FilePath>
-            </File>
-            <File>
-              <FileName>OLED_Font.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\OLED_Font.h</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\Serial.h</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
+              <FileName>lcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\Serial.c</FilePath>
+              <FilePath>.\System\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\sys.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>mylcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\mylcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>mylcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\System\mylcd.h</FilePath>
             </File>
             <File>
               <FileName>PC13LED.c</FileName>
@@ -696,139 +701,54 @@
               <FilePath>.\System\PC13LED.h</FilePath>
             </File>
             <File>
-              <FileName>Driver_Screen.c</FileName>
+              <FileName>menu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\Driver_Screen.c</FilePath>
+              <FilePath>.\System\menu.c</FilePath>
             </File>
             <File>
-              <FileName>Driver_Screen.h</FileName>
+              <FileName>menu.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\System\Driver_Screen.h</FilePath>
+              <FilePath>.\System\menu.h</FilePath>
             </File>
             <File>
-              <FileName>24cxx.c</FileName>
+              <FileName>mykey.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\24cxx.c</FilePath>
+              <FilePath>.\System\mykey.c</FilePath>
             </File>
             <File>
-              <FileName>24cxx.h</FileName>
+              <FileName>mykey.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\System\24cxx.h</FilePath>
+              <FilePath>.\System\mykey.h</FilePath>
             </File>
             <File>
-              <FileName>FONT.H</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\FONT.H</FilePath>
-            </File>
-            <File>
-              <FileName>GUI.c</FileName>
+              <FileName>process.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\GUI.c</FilePath>
+              <FilePath>.\System\process.c</FilePath>
             </File>
             <File>
-              <FileName>GUI.h</FileName>
+              <FileName>process.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\System\GUI.h</FilePath>
+              <FilePath>.\System\process.h</FilePath>
             </File>
             <File>
-              <FileName>key.c</FileName>
+              <FileName>Serial.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\key.c</FilePath>
+              <FilePath>.\System\Serial.c</FilePath>
             </File>
             <File>
-              <FileName>key.h</FileName>
+              <FileName>Serial.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\System\key.h</FilePath>
+              <FilePath>.\System\Serial.h</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
+              <FileName>MMC_SD.C</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\lcd.c</FilePath>
+              <FilePath>.\System\MMC_SD.C</FilePath>
             </File>
             <File>
-              <FileName>lcd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\lcd.h</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
+              <FileName>sd_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\System\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\led.h</FilePath>
-            </File>
-            <File>
-              <FileName>myiic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\myiic.c</FilePath>
-            </File>
-            <File>
-              <FileName>myiic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\myiic.h</FilePath>
-            </File>
-            <File>
-              <FileName>pic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\pic.h</FilePath>
-            </File>
-            <File>
-              <FileName>SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\SPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\SPI.h</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\sys.h</FilePath>
-            </File>
-            <File>
-              <FileName>touch.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\touch.c</FilePath>
-            </File>
-            <File>
-              <FileName>touch.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\touch.h</FilePath>
-            </File>
-            <File>
-              <FileName>my_key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\my_key.c</FilePath>
-            </File>
-            <File>
-              <FileName>my_key.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\my_key.h</FilePath>
-            </File>
-            <File>
-              <FileName>Position.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\Position.h</FilePath>
+              <FilePath>.\System\sd_spi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -854,6 +774,41 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FATFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FATFS\source\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffsystem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FATFS\source\ffsystem.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffunicode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FATFS\source\ffunicode.c</FilePath>
+            </File>
+            <File>
+              <FileName>mf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FATFS\mf.c</FilePath>
+            </File>
+            <File>
+              <FileName>mf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FATFS\mf.h</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FATFS\source\ff.c</FilePath>
             </File>
           </Files>
         </Group>

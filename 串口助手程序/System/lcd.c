@@ -63,7 +63,7 @@
 _lcd_dev lcddev;
 
 //画笔颜色,背景颜色
-u16 POINT_COLOR = WHITE,BACK_COLOR = BLACK;  
+u16 POINT_COLOR = 0x0000,BACK_COLOR = 0xFFFF;  
 u16 DeviceCode;	 
 
 /*****************************************************************************
@@ -77,7 +77,7 @@ void LCD_WR_REG(u8 data)
 { 
    LCD_CS_CLR;     
 	 LCD_RS_CLR;	  
-   SPIv_WriteData(data);
+   SPI_WriteByte(SPI1,data);
    LCD_CS_SET;	
 }
 
@@ -92,7 +92,7 @@ void LCD_WR_DATA(u8 data)
 {
    LCD_CS_CLR;
 	 LCD_RS_SET;
-   SPIv_WriteData(data);
+   SPI_WriteByte(SPI1,data);
    LCD_CS_SET;
 }
 
@@ -133,8 +133,8 @@ void Lcd_WriteData_16Bit(u16 Data)
 {	
    LCD_CS_CLR;
    LCD_RS_SET;  
-   SPIv_WriteData(Data>>8);
-	 SPIv_WriteData(Data);
+   SPI_WriteByte(SPI1,Data>>8);
+	 SPI_WriteByte(SPI1,Data);
    LCD_CS_SET;
 }
 
@@ -184,22 +184,18 @@ void LCD_Clear(u16 Color)
 ******************************************************************************/	
 void LCD_GPIOInit(void)
 {
-	GPIO_InitTypeDef  GPIO_InitStructure;
-	      
-	RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOA ,ENABLE);
-	RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOB ,ENABLE);
-
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0| GPIO_Pin_1| GPIO_Pin_4| GPIO_Pin_5|GPIO_Pin_7;
+	//按屏幕手册和板子上硬件连接修改
+	GPIO_InitTypeDef  GPIO_InitStructure;	      
+	RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOB ,ENABLE);	//使能GPIOB时钟
+	RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOA ,ENABLE);	//使能GPIOA时钟
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0| GPIO_Pin_1| GPIO_Pin_4; //GPIOA0,1,4
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   //推挽输出
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);//lcd接PB1
+	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
 	
-	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;    
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  
-	GPIO_Init(GPIOA, &GPIO_InitStructure); 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);//PB1初始化
 }
 
 /*****************************************************************************
@@ -218,7 +214,7 @@ void LCD_RESET(void)
 }
 
 /*****************************************************************************
- * @name       :void LCD_Init(void)
+ * @name       :void LCD_RESET(void)
  * @date       :2018-08-09 
  * @function   :Initialization LCD screen
  * @parameters :None
@@ -226,7 +222,8 @@ void LCD_RESET(void)
 ******************************************************************************/	 	 
 void LCD_Init(void)
 {  
-	LCD_GPIOInit();//LCD GPIO初始化	
+	SPI1_Init(); //硬件SPI1初始化
+	LCD_GPIOInit();//LCD GPIO初始化										 
  	LCD_RESET(); //LCD 复位
 //*************2.8inch ILI9341初始化**********//	
 	LCD_WR_REG(0xCF);  
@@ -322,7 +319,7 @@ void LCD_Init(void)
 	delay_ms(120);
 	LCD_WR_REG(0x29); //display on		
 
-	LCD_direction(USE_HORIZONTAL);//设置LCD显示方向
+  LCD_direction(USE_HORIZONTAL);//设置LCD显示方向
 	LCD_LED=1;//点亮背光	 
 	LCD_Clear(WHITE);//清全屏白色
 }

@@ -34,7 +34,4 @@
 .\objects\test.o: System\delay.h
 .\objects\test.o: System\gui.h
 .\objects\test.o: System\test.h
-.\objects\test.o: System\touch.h
-.\objects\test.o: System\key.h
-.\objects\test.o: System\led.h
 .\objects\test.o: System\pic.h

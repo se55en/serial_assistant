@@ -88,7 +88,7 @@ extern u16  BACK_COLOR; //背景颜色.默认为白色
 #define GPIO_TYPE  GPIOA  //GPIO组类型
 #define LED      1        //背光控制引脚        PB9
 #define LCD_CS   4       //片选引脚            PB11
-#define LCD_RS   1        //寄存器/数据选择引脚 PB10 
+#define LCD_RS   1       //寄存器/数据选择引脚 PB10 
 #define LCD_RST  0       //复位引脚            PB12
 
 

@@ -74,12 +74,5 @@ void Gui_Drawbmp16(u16 x,u16 y,const unsigned char *p); //ÏÔÊ¾40*40 QQÍ¼Æ¬
 void gui_circle(int xc, int yc,u16 c,int r, int fill);
 void Gui_StrCenter(u16 x, u16 y, u16 fc, u16 bc, u8 *str,u8 size,u8 mode);
 void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2);
-
-void LCD_ShowNumRed(u16 x,u16 y,u32 num,u8 len,u8 size);//ºìÉ«±³¾°
-void LCD_ShowStringRed(u16 x,u16 y,u8 size,u8 *p,u8 mode);//ºìÉ«±³¾°
-void MY_ShowHexNum(u16 x,u16 y, u8 num);
-void MY_ShowString(u16 x,u16 y,u8 *p);
-void MY_ShowChar(u16 x,u16 y,u8 num);
-void MY_ShowNumber(u16 x,u16 y,u32 num,u8 len);
 #endif
 

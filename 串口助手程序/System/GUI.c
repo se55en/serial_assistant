@@ -456,17 +456,6 @@ void LCD_ShowString(u16 x,u16 y,u8 size,u8 *p,u8 mode)
         p++;
     }  
 } 
-void LCD_ShowStringRed(u16 x,u16 y,u8 size,u8 *p,u8 mode)
-{         
-    while((*p<='~')&&(*p>=' '))//判断是不是非法字符!
-    {   
-		if(x>(lcddev.width-1)||y>(lcddev.height-1)) 
-		return;     
-        LCD_ShowChar(x,y,POINT_COLOR,RED,*p,size,mode);
-        x+=size/2;
-        p++;
-    }  
-} 
 
 /*****************************************************************************
  * @name       :u32 mypow(u8 m,u8 n)
@@ -513,25 +502,7 @@ void LCD_ShowNum(u16 x,u16 y,u32 num,u8 len,u8 size)
 	 	LCD_ShowChar(x+(size/2)*t,y,POINT_COLOR,BACK_COLOR,temp+'0',size,0); 
 	}
 } 
-void LCD_ShowNumRed(u16 x,u16 y,u32 num,u8 len,u8 size)
-{         	
-	u8 t,temp;
-	u8 enshow=0;						   
-	for(t=0;t<len;t++)
-	{
-		temp=(num/mypow(10,len-t-1))%10;
-		if(enshow==0&&t<(len-1))
-		{
-			if(temp==0)
-			{
-				LCD_ShowChar(x+(size/2)*t,y,POINT_COLOR,RED,' ',size,0);
-				continue;
-			}else enshow=1; 
-		 	 
-		}
-	 	LCD_ShowChar(x+(size/2)*t,y,POINT_COLOR,RED,temp+'0',size,0); 
-	}
-} 
+
 /*****************************************************************************
  * @name       :void GUI_DrawFont16(u16 x, u16 y, u16 fc, u16 bc, u8 *s,u8 mode)
  * @date       :2018-08-09 
@@ -810,45 +781,3 @@ void Gui_Drawbmp16(u16 x,u16 y,const unsigned char *p) //显示40*40 QQ图片
 	}	
 	LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);//恢复显示窗口为全屏	
 }
-
-////////////////////////////////////////////////////////???????????????????????????????????????????????????????????????????????
-
-
-//显示十六进制
-void MY_ShowHexNum(u16 x,u16 y, u8 num)
-{
-	u8 hex = num/16%16;
-	if(hex < 10)
-	{
-		LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,hex+'0',16,0);
-	}
-	else
-	{
-		LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,hex-10+'A',16,0);
-	}
-	x+=8;
-	hex = num/1%16;
-	if(hex < 10)
-	{
-		LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,hex+'0',16,0);
-	}
-	else
-	{
-		LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR,hex-10+'A',16,0);
-	}
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////my function
-void MY_ShowString(u16 x,u16 y,u8 *p)
-{
-	LCD_ShowString(x,y,16,p,1);
-}
-void MY_ShowChar(u16 x,u16 y,u8 num)
-{
-	LCD_ShowChar(x,y,POINT_COLOR,BACK_COLOR, num,16,0);
-}
-void MY_ShowNumber(u16 x,u16 y,u32 num,u8 len)
-{
-	LCD_ShowNum(x,y,num,len,16);
-}
-
