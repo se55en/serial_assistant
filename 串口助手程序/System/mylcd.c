@@ -59,9 +59,9 @@ void myLCD_ShowHexNum(u16 x,u16 y, u8 num)
 	{
 		x = x%240;
 		y += 16;
-		if(y>=320)
+		if(y>=304)
 		{
-			y = y%320;
+			y = y%304;
 		}
 	}
 

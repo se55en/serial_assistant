@@ -15,5 +15,6 @@ u8 menu2_baud(void);
 u8 menu2_showmode(void);
 u8 menu2_processmode(void);
 void Menu_ShowHead(void);
+u32 user_define(void);
 
 #endif

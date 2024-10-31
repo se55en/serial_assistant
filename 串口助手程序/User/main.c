@@ -13,7 +13,6 @@
 #include "stdio.h"
 
 u8 menu2_flag = 0;//子菜单标志位 
-u8 show_menu = 0;//显示菜单标志位 
 int main(void)
 {
 	Serial_Init();//串口初始化
@@ -27,7 +26,6 @@ int main(void)
 	while(1)
 	{
 		process(serial.ProcessMode);//处理接收数据
-
 		while(1)
 		{
 			menu2_flag = Menu();

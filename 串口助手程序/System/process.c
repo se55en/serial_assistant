@@ -11,7 +11,7 @@ typedef struct
 #define X_MIN 		0
 #define X_MAX 		29
 #define Y_MIN 		2
-#define Y_MAX 		19
+#define Y_MAX 		18
 
 u8 x = 0, y = 2;//光标位置
 u8 first_flag = 1;//第一次不用回车换行
@@ -47,7 +47,7 @@ u8 ScreenDisplay(void)
 		if(KeyNum == 1)
 		{
 			//清空显示区
-			LCD_Fill(0, Y[2]+1, 240, 320,WHITE);
+			LCD_Fill(0, Y[2], 240, 303,WHITE);
 			return 1;
 		}
 		if(serial.USART1_NoDisplayLen)//有没显示的数据，则显示开始显示数据
@@ -72,6 +72,7 @@ u8 ScreenDisplay(void)
 void SendToPC(void)
 {
 	u8 KeyNum = 0;
+	Show_Str(X[7],Y[10],BLACK, WHITE, "转发数据到电脑...",16,0);
 	while(1)
 	{
 		//按键返回
@@ -79,7 +80,7 @@ void SendToPC(void)
 		if(KeyNum == 1)
 		{
 			//清空显示区
-			LCD_Fill(0, Y[2]+1, 240, 320,WHITE);
+			LCD_Fill(0, Y[2], 240, 303,WHITE);
 			return;
 		}
 		//发送数据给pc
@@ -106,44 +107,68 @@ void SendToPC(void)
 void SendToSD(void)
 {
 	u8 res_sd = 0;
-	static u8 init_flag = 0;//初始化标志，0表示没初始化 
+	static u8 init_flag = 0;//初始化标志，0表示没初始化  
 	u8 first_flag = 0;//第一次进入函数
 	u8 KeyNum = 0;
 	while(1)
 	{
 		//按键返回
 		KeyNum = myKey_GetNum();
-		if(KeyNum == 1)
+		if(KeyNum)
 		{
-			f_close(&fs_file);//关闭文件
-			//清空显示区
-			LCD_Fill(0, Y[2]+1, 240, 320,WHITE);
-			return;
+			if(KeyNum == 1)
+			{
+				f_close(&fs_file);//关闭文件
+				//清空显示区
+				LCD_Fill(0, Y[2], 240, 303,WHITE);
+				return;
+			}
+			if(KeyNum == 4)//保存
+			{
+				f_close(&fs_file);//关闭文件
+				f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE);//打开文件
+			}
 		}
 		//sd卡操作
 		if(!init_flag)//初始化sd卡
 		{
-			while(SD_Initialize())//检测不到SD卡
+			u8 t = 100;
+			while(SD_Initialize()&&t)//检测不到SD卡
 			{
-				myLCD_ShowString(X[5], Y[5], "SD Card Error!");
-				delay_ms(500);					
-				myLCD_ShowString(X[5], Y[5], "Please Check! ");
-				delay_ms(500);
+				KeyNum = myKey_GetNum();
+				if(KeyNum == 1)
+				{
+					f_close(&fs_file);//关闭文件
+					//清空显示区
+					LCD_Fill(0, Y[2], 240, 303,WHITE);
+					return;
+				}
+				if(t == 100)
+				{
+					myLCD_ShowString(X[5], Y[7], "Please Check TFcard!");
+				}
+				t--;
 			}
-			myLCD_ShowString(X[5], Y[5], "SD Card Init Success");
+			if(t == 0)//初始化失败
+			{
+				Gui_StrCenter(X[0],Y[18],WHITE, RED, "TF Initialize Error!",16,0);
+				LCD_Fill(0, Y[2], 240, Y[18]-1,WHITE);
+				return;
+			}
+			myLCD_ShowString(X[5], Y[7], "TFcard Init Success ");
 			res_sd = f_mount(&fs,"0:",1); //挂载SD卡 
 			//打印信息
-			sprintf(print_buf, "\nres_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
+			sprintf(print_buf, "\nf_mount res_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
 			if(res_sd)
 			{
-				myLCD_ShowString(X[5], Y[19], "SD Mount Fail");
+				Gui_StrCenter(X[0],Y[18],WHITE, RED, "TFcard Mount Fail!",16,0);
 			}
 			/*----------------------- 格式化测试 ---------------------------*/
 			/* 如果没有文件系统就格式化创建创建文件系统 */
 			if (res_sd == FR_NO_FILESYSTEM) 
 			{
 				res_sd=f_mkfs("0:", 0, fs_work, sizeof(fs_work));
-				sprintf(print_buf, "\nres_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
+				sprintf(print_buf, "\nf_mkfs res_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
 				res_sd = f_mount(&fs,"0:",1); //挂载SD卡 
 			}	
 			init_flag = 1;
@@ -152,11 +177,11 @@ void SendToSD(void)
 		{
 			u32 total = 0,free = 0;
 			exf_getfree((u8*)"0:",&total,&free);	//得到SD卡的总容量和剩余容量												 
-			sprintf(print_buf, "SD Total Size:%d MB\n",total>>10);
-			myLCD_ShowString(X[5], Y[10], (u8*)print_buf);
-			sprintf(print_buf, "SD Free Size: %d MB\n",free>>10);
-			myLCD_ShowString(X[5], Y[11], (u8*)print_buf);
-			
+			sprintf(print_buf, "TF Total Size:   %d MB\n",total>>10);
+			myLCD_ShowString(X[3], Y[10], (u8*)print_buf);
+			sprintf(print_buf, "TF Free Size:    %d MB\n",free>>10);
+			myLCD_ShowString(X[3], Y[11], (u8*)print_buf);
+			Show_Str(X[25],Y[19],WHITE, BLUE, "保存",16,0);
 			/* 打开文件，如果文件不存在则创建它 */
 			res_sd=f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE);//"a",追加文件
 			sprintf(print_buf, "f_open res_sd = %d\n", res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
@@ -195,7 +220,7 @@ void SendToSD(void)
 
 void my_f_write(uint8_t *arr, uint16_t len)
 {
-//	u8 res_sd;
+	u8 res_sd;
 	if(len == 0)	// 判断长度是否有效
     return;
 	
@@ -257,7 +282,7 @@ u8 AddX(u8 add)
 			if(y > Y_MAX)
 			{
 				//清空显示区
-				LCD_Fill(0, Y[2]+1, 240-1, 320-1,WHITE);
+				LCD_Fill(0, Y[2], 240-1, 303,WHITE);
 				y = Y_MIN;
 				result = 1;
 			}
@@ -274,7 +299,7 @@ u8 AddY(u8 add)
 		if(y > Y_MAX)
 		{
 			//清空显示区
-			LCD_Fill(0, Y[2]+1, 240-1, 320-1,WHITE);
+			LCD_Fill(0, Y[2], 240-1, 303,WHITE);
 			y = Y_MIN;
 			result = 1;
 		}

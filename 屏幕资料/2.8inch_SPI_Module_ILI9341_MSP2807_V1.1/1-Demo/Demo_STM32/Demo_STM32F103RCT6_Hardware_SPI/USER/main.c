@@ -64,6 +64,7 @@ int main(void)
 	SystemInit();//初始化RCC 设置系统主频为72MHZ
 	delay_init(72);	     //延时初始化
 	LCD_Init();	   //液晶屏初始化
+	LCD_ShowChar(X[10],Y[10],BLACK, BLUE, "A",16,1);
   //循环测试
 	while(1)
 	{

@@ -811,9 +811,9 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
-I (System\font.h)(0x671F6556)
+I (System\font.h)(0x67230049)
 I (System\delay.h)(0x5B6BEFB8)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 F (.\System\lcd.c)(0x67125C06)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\lcd.o --omf_browse .\objects\lcd.crf --depend .\objects\lcd.d)
 I (System\lcd.h)(0x671270D0)
 I (System\sys.h)(0x5B6BE71E)
@@ -911,7 +911,7 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (System\delay.h)(0x5B6BEFB8)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 I (System\test.h)(0x67124EC7)
 I (System\pic.h)(0x5B6BE824)
 F (.\System\SPI.c)(0x671A4955)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\spi.o --omf_browse .\objects\spi.crf --depend .\objects\spi.d)
@@ -945,7 +945,7 @@ I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
-F (.\System\mylcd.c)(0x6714BBC5)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\mylcd.o --omf_browse .\objects\mylcd.crf --depend .\objects\mylcd.d)
+F (.\System\mylcd.c)(0x672227D4)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\mylcd.o --omf_browse .\objects\mylcd.crf --depend .\objects\mylcd.d)
 I (System\mylcd.h)(0x6714B9D7)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -979,7 +979,7 @@ I (System\delay.h)(0x5B6BEFB8)
 I (System\sys.h)(0x5B6BE71E)
 I (System\lcd.h)(0x671270D0)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 I (System\test.h)(0x67124EC7)
 F (.\System\mylcd.h)(0x6714B9D7)()
 F (.\System\PC13LED.c)(0x65ED5742)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\pc13led.o --omf_browse .\objects\pc13led.crf --depend .\objects\pc13led.d)
@@ -1012,8 +1012,8 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\System\PC13LED.h)(0x65ED5769)()
-F (.\System\menu.c)(0x671E203D)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
-I (System\menu.h)(0x671E08F8)
+F (.\System\menu.c)(0x67230160)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
+I (System\menu.h)(0x67224033)
 I (System\lcd.h)(0x671270D0)
 I (System\sys.h)(0x5B6BE71E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
@@ -1045,14 +1045,14 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 I (System\myLCD.h)(0x6714B9D7)
 I (System\delay.h)(0x5B6BEFB8)
 I (System\test.h)(0x67124EC7)
 I (System\myKey.h)(0x6714B958)
 I (System\Serial.h)(0x671F63B6)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
-F (.\System\menu.h)(0x671E08F8)()
+F (.\System\menu.h)(0x67224033)()
 F (.\System\mykey.c)(0x671E4200)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\mykey.o --omf_browse .\objects\mykey.crf --depend .\objects\mykey.d)
 I (System\delay.h)(0x5B6BEFB8)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
@@ -1084,7 +1084,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\System\mykey.h)(0x6714B958)()
-F (.\System\process.c)(0x671F78E0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\process.o --omf_browse .\objects\process.crf --depend .\objects\process.d)
+F (.\System\process.c)(0x6723387A)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\process.o --omf_browse .\objects\process.crf --depend .\objects\process.d)
 I (System\process.h)(0x671E203D)
 I (System\serial.h)(0x671F63B6)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
@@ -1116,22 +1116,22 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
-I (System\menu.h)(0x671E08F8)
+I (System\menu.h)(0x67224033)
 I (System\lcd.h)(0x671270D0)
 I (System\sys.h)(0x5B6BE71E)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 I (System\myLCD.h)(0x6714B9D7)
 I (System\delay.h)(0x5B6BEFB8)
 I (System\test.h)(0x67124EC7)
 I (System\myKey.h)(0x6714B958)
 I (.\FATFS\mf.h)(0x671E244A)
 I (.\FATFS\source\ff.h)(0x671C9AEE)
-I (.\FATFS\source\ffconf.h)(0x671F7704)
+I (.\FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (.\System\mmc_sd.h)(0x671A4EB3)
 F (.\System\process.h)(0x671E203D)()
-F (.\System\Serial.c)(0x671F78F1)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
+F (.\System\Serial.c)(0x672231CF)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
 I (System\Serial.h)(0x671F63B6)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1199,7 +1199,7 @@ I (System\mylcd.h)(0x6714B9D7)
 I (System\delay.h)(0x5B6BEFB8)
 I (System\lcd.h)(0x671270D0)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (System\gui.h)(0x5B6BE75A)
+I (System\gui.h)(0x6722EF3E)
 I (System\test.h)(0x67124EC7)
 F (.\System\sd_spi.c)(0x671B89B9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\sd_spi.o --omf_browse .\objects\sd_spi.crf --depend .\objects\sd_spi.d)
 I (System\sd_spi.h)(0x671A4D2A)
@@ -1232,7 +1232,7 @@ I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
-F (.\User\main.c)(0x671F74B7)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x6722F553)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -1266,17 +1266,17 @@ I (.\System\delay.h)(0x5B6BEFB8)
 I (.\System\sys.h)(0x5B6BE71E)
 I (.\System\lcd.h)(0x671270D0)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (.\System\gui.h)(0x5B6BE75A)
+I (.\System\gui.h)(0x6722EF3E)
 I (.\System\test.h)(0x67124EC7)
 I (.\System\PC13LED.h)(0x65ED5769)
-I (.\System\menu.h)(0x671E08F8)
+I (.\System\menu.h)(0x67224033)
 I (.\System\myKey.h)(0x6714B958)
 I (.\System\Serial.h)(0x671F63B6)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (.\System\process.h)(0x671E203D)
 I (.\FATFS\mf.h)(0x671E244A)
 I (.\FATFS\source\ff.h)(0x671C9AEE)
-I (.\FATFS\source\ffconf.h)(0x671F7704)
+I (.\FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (.\System\mmc_sd.h)(0x671A4EB3)
 F (.\User\stm32f10x_conf.h)(0x4D99A59E)()
@@ -1313,7 +1313,7 @@ I (.\Library\misc.h)(0x4D783BB4)
 F (.\User\stm32f10x_it.h)(0x4D99A59E)()
 F (.\FATFS\source\diskio.c)(0x671CA697)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\diskio.o --omf_browse .\objects\diskio.crf --depend .\objects\diskio.d)
 I (FATFS\source\ff.h)(0x671C9AEE)
-I (FATFS\source\ffconf.h)(0x671F7704)
+I (FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (FATFS\source\diskio.h)(0x671C9AEE)
 I (.\System\mmc_sd.h)(0x671A4EB3)
@@ -1347,12 +1347,12 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\FATFS\source\ffsystem.c)(0x671CA597)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\ffsystem.o --omf_browse .\objects\ffsystem.crf --depend .\objects\ffsystem.d)
 I (FATFS\source\ff.h)(0x671C9AEE)
-I (FATFS\source\ffconf.h)(0x671F7704)
+I (FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 F (.\FATFS\source\ffunicode.c)(0x671E5062)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\ffunicode.o --omf_browse .\objects\ffunicode.crf --depend .\objects\ffunicode.d)
 I (FATFS\source\ff.h)(0x671C9AEE)
-I (FATFS\source\ffconf.h)(0x671F7704)
+I (FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 F (.\FATFS\mf.c)(0x671F747A)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\mf.o --omf_browse .\objects\mf.crf --depend .\objects\mf.d)
 I (FATFS\mf.h)(0x671E244A)
@@ -1385,7 +1385,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (.\FATFS\source\ff.h)(0x671C9AEE)
-I (.\FATFS\source\ffconf.h)(0x671F7704)
+I (.\FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (.\System\serial.h)(0x671F63B6)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
@@ -1395,13 +1395,13 @@ I (.\System\sys.h)(0x5B6BE71E)
 I (.\System\mylcd.h)(0x6714B9D7)
 I (.\System\lcd.h)(0x671270D0)
 I (D:\Keil5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (.\System\gui.h)(0x5B6BE75A)
+I (.\System\gui.h)(0x6722EF3E)
 I (.\System\test.h)(0x67124EC7)
 F (.\FATFS\mf.h)(0x671E244A)()
 F (.\FATFS\source\ff.c)(0x671CDD30)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\FATFS -I .\FATFS\source-I.\RTE\_Target_1-ID:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-ID:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\ff.o --omf_browse .\objects\ff.crf --depend .\objects\ff.d)
 I (D:\Keil5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (FATFS\source\ff.h)(0x671C9AEE)
-I (FATFS\source\ffconf.h)(0x671F7704)
+I (FATFS\source\ffconf.h)(0x671F86A5)
 I (D:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (FATFS\source\diskio.h)(0x671C9AEE)
 I (D:\Keil5\ARM\ARMCC\include\stdarg.h)(0x588B8344)

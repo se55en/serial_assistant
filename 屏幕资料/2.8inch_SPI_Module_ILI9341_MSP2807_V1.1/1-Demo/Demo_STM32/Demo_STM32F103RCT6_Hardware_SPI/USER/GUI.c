@@ -526,7 +526,7 @@ void GUI_DrawFont16(u16 x, u16 y, u16 fc, u16 bc, u8 *s,u8 mode)
 			
 	for (k=0;k<HZnum;k++) 
 	{
-	  if ((tfont16[k].Index[0]==*(s))&&(tfont16[k].Index[1]==*(s+1)))
+	  if ((tfont16[k].Index[0]==*(s))&&(tfont16[k].Index[1]==*(s+1)))//一个汉字两个字节
 	  { 	LCD_SetWindows(x,y,x+16-1,y+16-1);
 		    for(i=0;i<16*2;i++)
 		    {

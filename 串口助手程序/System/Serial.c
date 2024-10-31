@@ -194,7 +194,7 @@ void serial_Change2Baud(u32 Baud)//修改串口2波特率
 	//配置USART1
 	USART_InitStructure.USART_BaudRate = Baud;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Rx;
+	USART_InitStructure.USART_Mode = USART_Mode_Tx;
 	USART_InitStructure.USART_Parity = USART_Parity_No;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
@@ -209,7 +209,7 @@ void uart2SendArray(uint8_t *arr, uint16_t len)
 	uint16_t sendLen = (len>sizeof(serial.USART2_TxBuff)) ? sizeof(serial.USART2_TxBuff) : len;	// 防止越界
 
     
-    while (DMA_GetCurrDataCounter(DMA1_Channel7));  // 检查DMA发送通道内是否还有数据
+    while (DMA_GetCurrDataCounter(DMA1_Channel7));  // 检查DMA发送通道内是否还有数据//可以写个发送超时函数
     if(arr) 
     memcpy(serial.USART2_TxBuff, arr, sendLen);
     

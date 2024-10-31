@@ -74,5 +74,6 @@ void Gui_Drawbmp16(u16 x,u16 y,const unsigned char *p); //œ‘ æ40*40 QQÕº∆¨
 void gui_circle(int xc, int yc,u16 c,int r, int fill);
 void Gui_StrCenter(u16 x, u16 y, u16 fc, u16 bc, u8 *str,u8 size,u8 mode);
 void LCD_DrawFillRectangle(u16 x1, u16 y1, u16 x2, u16 y2);
+u32 mypow(u8 m,u8 n);
 #endif
 
