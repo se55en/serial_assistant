@@ -27,7 +27,8 @@ void Show2(void);
 void SendToPC(void);
 //转发到SD卡相关函数
 void SendToSD(void);
-void my_f_write(uint8_t *arr, uint16_t len);
+void my_f_write1(uint8_t *arr, uint16_t len);
+void my_f_write2(uint8_t *arr, uint16_t len);
 
 void process(u8 mode)//处理数据模式
 {
@@ -107,9 +108,34 @@ void SendToPC(void)
 void SendToSD(void)
 {
 	u8 res_sd = 0;
-	static u8 init_flag = 0;//初始化标志，0表示没初始化  
-	u8 first_flag = 0;//第一次进入函数
 	u8 KeyNum = 0;
+	u32 total = 0,free = 0;
+	Show_Str(X[3],Y[19],WHITE, BLUE, "保存",16,0);
+	//sd卡操作
+	res_sd = f_mount(&fs_FatFs,"0:",1); //挂载SD卡 
+	sprintf(print_buf, "f_mount res = %d",res_sd);myLCD_ShowString(X[3], Y[12], (u8*)print_buf);
+	if(res_sd == FR_NO_FILESYSTEM) /* 如果没有文件系统就格式化创建创建文件系统 */
+	{
+		res_sd = f_mkfs("0:", 0, fs_work, sizeof(fs_work));
+		sprintf(print_buf, "f_mkfs res = %d",res_sd);myLCD_ShowString(X[3], Y[14], (u8*)print_buf);
+		f_mount(&fs_FatFs,"0:",1); //挂载SD卡 
+	}	
+	if(res_sd == FR_OK)
+	{
+		myLCD_ShowString(X[5], Y[7], "TFcard Mount Success");
+		while(exf_getfree((u8*)"0:",&total,&free));	//得到SD卡的总容量和剩余容量												 
+		sprintf(print_buf, "TF Total Size:   %d MB\n",total>>10);
+		myLCD_ShowString(X[3], Y[10], (u8*)print_buf);
+		sprintf(print_buf, "TF Free Size:    %d MB\n",free>>10);
+		myLCD_ShowString(X[3], Y[11], (u8*)print_buf);
+		/* 打开文件，如果文件不存在则创建它 */
+		res_sd = f_open(&fs_file,"0:u.txt",FA_OPEN_APPEND|FA_WRITE);//追加文件
+		sprintf(print_buf, "f_open res = %d",res_sd);myLCD_ShowString(X[3], Y[13], (u8*)print_buf);
+	}
+	else
+	{
+		Gui_StrCenter(X[0],Y[18],WHITE, RED, "TFcard Mount Error!!!",16,0);
+	}
 	while(1)
 	{
 		//按键返回
@@ -119,97 +145,35 @@ void SendToSD(void)
 			if(KeyNum == 1)
 			{
 				f_close(&fs_file);//关闭文件
-				//清空显示区
-				LCD_Fill(0, Y[2], 240, 303,WHITE);
+				f_mount(NULL,"0:",1);//取消挂载
+//				mf_read();
+				LCD_Fill(0, Y[2], 240, 303,WHITE);//清空显示区
+				mf_read();
 				return;
 			}
-			if(KeyNum == 4)//保存
-			{
-				f_close(&fs_file);//关闭文件
-				f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE);//打开文件
-			}
 		}
-		//sd卡操作
-		if(!init_flag)//初始化sd卡
+		if(serial.USART1_NoDisplayLen)//有没显示的数据，则写入文件
 		{
-			u8 t = 100;
-			while(SD_Initialize()&&t)//检测不到SD卡
+			while(serial.USART1_NoDisplayLen)
 			{
-				KeyNum = myKey_GetNum();
-				if(KeyNum == 1)
-				{
-					f_close(&fs_file);//关闭文件
-					//清空显示区
-					LCD_Fill(0, Y[2], 240, 303,WHITE);
-					return;
-				}
-				if(t == 100)
-				{
-					myLCD_ShowString(X[5], Y[7], "Please Check TFcard!");
-				}
-				t--;
+				strcpy((char *)fs_buffer, "\n[1>>]:");
+				f_write(&fs_file, fs_buffer, strlen((char *)fs_buffer),&fs_bw);
+//				my_f_write1(serial.USART1_RecvBuff+serial.USART1_DisplayLen, serial.USART1_NoDisplayLen);        //写数据
 			}
-			if(t == 0)//初始化失败
-			{
-				Gui_StrCenter(X[0],Y[18],WHITE, RED, "TF Initialize Error!",16,0);
-				LCD_Fill(0, Y[2], 240, Y[18]-1,WHITE);
-				return;
-			}
-			myLCD_ShowString(X[5], Y[7], "TFcard Init Success ");
-			res_sd = f_mount(&fs,"0:",1); //挂载SD卡 
-			//打印信息
-			sprintf(print_buf, "\nf_mount res_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
-			if(res_sd)
-			{
-				Gui_StrCenter(X[0],Y[18],WHITE, RED, "TFcard Mount Fail!",16,0);
-			}
-			/*----------------------- 格式化测试 ---------------------------*/
-			/* 如果没有文件系统就格式化创建创建文件系统 */
-			if (res_sd == FR_NO_FILESYSTEM) 
-			{
-				res_sd=f_mkfs("0:", 0, fs_work, sizeof(fs_work));
-				sprintf(print_buf, "\nf_mkfs res_sd = %d\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
-				res_sd = f_mount(&fs,"0:",1); //挂载SD卡 
-			}	
-			init_flag = 1;
-		}
-		if(!first_flag)
-		{
-			u32 total = 0,free = 0;
-			exf_getfree((u8*)"0:",&total,&free);	//得到SD卡的总容量和剩余容量												 
-			sprintf(print_buf, "TF Total Size:   %d MB\n",total>>10);
-			myLCD_ShowString(X[3], Y[10], (u8*)print_buf);
-			sprintf(print_buf, "TF Free Size:    %d MB\n",free>>10);
-			myLCD_ShowString(X[3], Y[11], (u8*)print_buf);
-			Show_Str(X[25],Y[19],WHITE, BLUE, "保存",16,0);
-			/* 打开文件，如果文件不存在则创建它 */
-			res_sd=f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE);//"a",追加文件
-			sprintf(print_buf, "f_open res_sd = %d\n", res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
-			if(res_sd == FR_OK )
-			{
-				sprintf(print_buf, "打开/创建文件成功\r\n");uart2SendArray((u8*)print_buf, strlen(print_buf));
-			} 
-			else
-			{
-				sprintf(print_buf, "打开/创建文件失败。\r\n");uart2SendArray((u8*)print_buf, strlen(print_buf));
-			}
-			first_flag = 1;
-		}
-		if(serial.USART1_RecvBuffLen)//有没显示的数据，则显示开始发送数据
-		{
-			strcpy((char *)fs_buffer, "\n[1>>]:");
-			res_sd=f_write(&fs_file, fs_buffer, strlen((char *)fs_buffer),&fs_bw);
-			my_f_write(serial.USART1_RecvBuff, serial.USART1_RecvBuffLen);        //写数据
 			uart1DmaClear();    // 清空DMA接收通道
 			serial.USART1_RecvBuffLen = 0;
 			serial.USART1_NoDisplayLen = 0;
 			serial.USART1_DisplayLen = 0;
 		}
-		if(serial.USART3_RecvBuffLen)//有没显示的数据，则显示开始发送数据
+		if(serial.USART3_NoDisplayLen)//有没显示的数据，则显示开始发送数据
 		{
-			strcpy((char *)fs_buffer, "\n[2>>]:");
-			res_sd=f_write(&fs_file, fs_buffer, strlen((char *)fs_buffer),&fs_bw);
-			my_f_write(serial.USART3_RecvBuff, serial.USART3_RecvBuffLen);        //写数据
+//			while(serial.USART3_NoDisplayLen)
+			{
+				strcpy((char *)fs_buffer, "\n[2>>]:");
+				res_sd = f_write(&fs_file, fs_buffer, 7,&fs_bw);
+				sprintf(print_buf, "2write:%4d Byte,res = %d",fs_bw, res_sd);myLCD_ShowString(X[0], Y[18], (u8*)print_buf);
+//				my_f_write2(serial.USART3_RecvBuff+serial.USART3_DisplayLen, serial.USART3_NoDisplayLen);        //写数据
+			}
 			uart3DmaClear();    // 清空DMA接收通道
 			serial.USART3_RecvBuffLen = 0;
 			serial.USART3_NoDisplayLen = 0;
@@ -217,24 +181,30 @@ void SendToSD(void)
 		}
 	}
 }
-
-void my_f_write(uint8_t *arr, uint16_t len)
+void my_f_write1(uint8_t *arr, uint16_t len)
 {
-	u8 res_sd;
 	if(len == 0)	// 判断长度是否有效
     return;
-	
+	u8 res = 0;
     if(arr) 
 	{
-		f_write(&fs_file, arr, len,&fs_bw);
-//		if (res_sd==FR_OK) 
-//		{
-//			sprintf(print_buf, "文件写入成功，写入字节数据：%d\n",fs_bw);uart2SendArray((u8*)print_buf, strlen(print_buf));
-//        }
-//		else
-//		{
-//			sprintf(print_buf, "！！文件写入失败：(%d)\n",res_sd);uart2SendArray((u8*)print_buf, strlen(print_buf));
-//        }
+		res = f_write(&fs_file, arr, len,&fs_bw);
+		sprintf(print_buf, "1write:%4d Byte,res = %d",fs_bw, res);myLCD_ShowString(X[0], Y[17], (u8*)print_buf);
+		serial.USART1_DisplayLen += len;
+		serial.USART1_NoDisplayLen -= len;
+	}
+}
+void my_f_write2(uint8_t *arr, uint16_t len)
+{
+	if(len == 0)	// 判断长度是否有效
+    return;
+	u8 res;
+    if(arr) 
+	{
+		res = f_write(&fs_file, arr, len,&fs_bw);
+		sprintf(print_buf, "2write:%4d Byte,res = %d",fs_bw, res);myLCD_ShowString(X[0], Y[17], (u8*)print_buf);
+		serial.USART3_DisplayLen += len;
+		serial.USART3_NoDisplayLen -= len;
 	}
 }
 //显示数据头
@@ -265,7 +235,7 @@ void ShowHead2(void)
 		AddY(1);
 	}
 
-	myLCD_ShowString(X[x], Y[y], "[2>>:]");
+	myLCD_ShowString(X[x], Y[y], "[2>>]:");
 	AddX(6);
 }
 //移动光标,返回清屏标志,1为清屏

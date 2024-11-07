@@ -22,7 +22,7 @@ int main(void)
 	myLCD_Power_On();//LCD-VCC供电开关打开
 	myLCD_Init();
 	Menu_ShowHead();
-//	mf_test();
+
 	while(1)
 	{
 		process(serial.ProcessMode);//处理接收数据

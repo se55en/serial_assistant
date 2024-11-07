@@ -42,3 +42,4 @@
 .\objects\mf.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\mf.o: .\System\gui.h
 .\objects\mf.o: .\System\test.h
+.\objects\mf.o: .\System\myKey.h

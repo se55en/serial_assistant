@@ -8,14 +8,16 @@
 #include "mmc_sd.h"
 #include "mylcd.h"
 
-extern FATFS fs;
+extern FATFS fs_FatFs;
 extern FIL fs_file;            /* File object */
 extern UINT fs_bw, fs_br;         //读写数量   /* Bytes written */
 extern BYTE fs_work[FF_MAX_SS]; /* Work area (larger is better for processing time) */
-extern BYTE fs_buffer[4096];  //文件缓冲区 /* File copy buffer */
+extern BYTE fs_buffer[2048];  //文件缓冲区 /* File copy buffer */
 
+void SD_WriteReadTest(void);
 void mf_test(void);
 u8 exf_getfree(u8 *drv,u32 *total,u32 *free);
-
+void mf_write(void);
+void mf_read(void);
 #endif
 

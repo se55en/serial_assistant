@@ -35,17 +35,26 @@ DSTATUS disk_initialize (
 	BYTE pdrv				/* Physical drive nmuber to identify the drive */
 )
 {
-	u8 res=0;	    
+	u8 res=0;	
+	u8 t = 50;    
 	switch(pdrv)
 	{
 		case SD_CARD://SD卡
-			res = SD_Initialize();//SD_Initialize() 
-		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+			while(SD_Initialize()&&t)
 			{
-				SD_SPI_SpeedLow();
-				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
-				SD_SPI_SpeedHigh();
+//				SD_SPI_SpeedLow();
+//				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+//				SD_SPI_SpeedHigh();
+				t--;
+			}	
+			if(t > 0)
+			{
+				res = 0;
 			}
+			else{
+				res = 1;
+			}
+//			res = SD_Initialize();
   			break;
 		default:
 			res=1; 
@@ -78,12 +87,12 @@ DRESULT disk_read (
 	{
 		case SD_CARD://SD卡
 			res=SD_ReadDisk(buff,sector,count);	 
-		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
-			{
-				SD_SPI_SpeedLow();
-				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
-				SD_SPI_SpeedHigh();
-			}
+//		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+//			{
+//				SD_SPI_SpeedLow();
+//				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+//				SD_SPI_SpeedHigh();
+//			}
 			break;
 		default:
 			res=1; 

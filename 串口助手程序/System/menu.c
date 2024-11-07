@@ -17,15 +17,24 @@ void Menu_ShowHead(void)//头尾页面
 {
 	LCD_Fill(0,0,lcddev.width,31,BLUE);//0-31
 	LCD_Fill(0,lcddev.height-16,lcddev.width,lcddev.height-1,BLUE);//后16
-	Show_Str(X[0],Y[0],WHITE, BLUE, "模式:屏幕显示数据",16,0);
-	Show_Str(X[0],Y[1],WHITE, BLUE, "波特率: 115200",16,0);
-	Show_Str(X[17],Y[1],WHITE, BLUE, "显示模式:字符",16,0);
-	
+	Show_Str(X[0],Y[0],WHITE, BLUE, "模式:",16,0);
+	Show_Str(X[5],Y[0],WHITE,BLUE, ProcessMode[serial.ProcessMode],16,0);
+	Show_Str(X[0],Y[1],WHITE, BLUE, "波特率:",16,0);
+	u16 fctemp = POINT_COLOR;
+	u16 bctemp = BACK_COLOR;
+	POINT_COLOR = WHITE;
+	BACK_COLOR = BLUE;
+	LCD_ShowNum(X[7],Y[1], serial.Baud, 7, 16);
+	POINT_COLOR = fctemp;
+	BACK_COLOR = bctemp;
+	Show_Str(X[17],Y[1],WHITE, BLUE, "显示模式:",16,0);
+	Show_Str(X[26],Y[1],WHITE,BLUE, ShowMode[serial.ShowMode],16,0);
 	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:下 |K3:上 |K4:确定",16,0);
 }
 
 u8 Menu(void)
 {
+//	mf_test();
 	LCD_DrawRectangle(X[2], Y[3], X[28], Y[15]);
 	LCD_DrawLine(X[2], Y[4], X[28], Y[4]);
 	Gui_StrCenter(X[0],Y[3],BLACK,WHITE,"菜单",16,1);//居中显示
@@ -34,7 +43,6 @@ u8 Menu(void)
 	Show_Str(X[10],Y[9],BLACK,WHITE, "模式",16,0);
 	myLCD_ShowString(X[8], Y[5], ">");
 	Show_Str(X[3],Y[19],WHITE, BLUE, "返回",16,0);
-	Show_Str(X[25],Y[19],WHITE, BLUE, "确定",16,0);
 	u8 result = ChooseDir(3);
 	if(result == 0)
 	{

@@ -146,7 +146,56 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_128 -FS08000000 -FL020000 -FP0($$Device:STM32F103C8$Flash\STM32F10x_128.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>56</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134235284</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>D:\璧勬枡\椤圭洰\serial_assistant\涓插彛鍔╂墜绋嬪簭\FATFS\mf.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\project\FATFS/mf.c\56</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>6251</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134232108</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>D:\璧勬枡\椤圭洰\serial_assistant\涓插彛鍔╂墜绋嬪簭\FATFS\source\ff.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\project\FATFS/source/ff.c\6251</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>6253</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134232122</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>D:\璧勬枡\椤圭洰\serial_assistant\涓插彛鍔╂墜绋嬪簭\FATFS\source\ff.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\project\FATFS/source/ff.c\6253</Expression>
+        </Bp>
+      </Breakpoint>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -860,7 +909,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>54</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\System\GUI.c</PathWithFileName>
@@ -1152,7 +1201,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>77</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\FATFS\source\diskio.c</PathWithFileName>
@@ -1164,7 +1213,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>78</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\FATFS\source\ffsystem.c</PathWithFileName>
