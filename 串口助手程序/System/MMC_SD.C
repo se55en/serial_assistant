@@ -74,7 +74,7 @@ u8 SD_Select(void)
 //返回值:0,准备好了;其他,错误代码
 u8 SD_WaitReady(void)
 {
-	u16 t=0;
+	u32 t=0;
 	do
 	{
 		if(SD_SPI_ReadWriteByte(0XFF)==0XFF)return 0;//OK

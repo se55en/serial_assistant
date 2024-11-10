@@ -8,7 +8,6 @@
 #include "process.h"
 #include "serial.h"
 #include "mmc_sd.h"
-#include "ff.h"
 #include "mf.h"
 #include "stdio.h"
 
@@ -22,7 +21,6 @@ int main(void)
 	myLCD_Power_On();//LCD-VCC供电开关打开
 	myLCD_Init();
 	Menu_ShowHead();
-
 	while(1)
 	{
 		process(serial.ProcessMode);//处理接收数据

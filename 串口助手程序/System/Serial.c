@@ -10,7 +10,7 @@ void Serial_Init(void)
 	serial.toPCBaud = 115200;
 	serial.Baud = 115200;
 	serial.ShowMode = 0;
-	serial.ProcessMode = 2;
+	serial.ProcessMode = 0;
 	serial.USART1_RecvBuffLen = 0;
 	serial.USART1_DisplayLen = 0;
 	serial.USART1_NoDisplayLen = 0;

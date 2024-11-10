@@ -14,6 +14,7 @@
 /* Definitions of physical drive number for each drive */
 #define SD_CARD	 0  //SD卡,卷标为0
 
+
 /*-----------------------------------------------------------------------*/
 /* Get Drive Status                                                      */
 /*-----------------------------------------------------------------------*/
@@ -25,8 +26,6 @@ DSTATUS disk_status (
 	return 0;
 }
 
-
-
 /*-----------------------------------------------------------------------*/
 /* Inidialize a Drive                                                    */
 /*-----------------------------------------------------------------------*/
@@ -35,26 +34,17 @@ DSTATUS disk_initialize (
 	BYTE pdrv				/* Physical drive nmuber to identify the drive */
 )
 {
-	u8 res=0;	
-	u8 t = 50;    
+	u8 res=0;	    
 	switch(pdrv)
 	{
 		case SD_CARD://SD卡
-			while(SD_Initialize()&&t)
+			res = SD_Initialize();//SD_Initialize() 
+		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
 			{
-//				SD_SPI_SpeedLow();
-//				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
-//				SD_SPI_SpeedHigh();
-				t--;
-			}	
-			if(t > 0)
-			{
-				res = 0;
+				SD_SPI_SpeedLow();
+				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+				SD_SPI_SpeedHigh();
 			}
-			else{
-				res = 1;
-			}
-//			res = SD_Initialize();
   			break;
 		default:
 			res=1; 
@@ -69,11 +59,6 @@ DSTATUS disk_initialize (
 /* Read Sector(s)                                                        */
 /*-----------------------------------------------------------------------*/
 
-//读扇区
-//drv:磁盘编号0~9
-//*buff:数据接收缓冲首地址
-//sector:扇区地址
-//count:需要读取的扇区数
 DRESULT disk_read (
 	BYTE pdrv,		/* Physical drive nmuber to identify the drive */
 	BYTE *buff,		/* Data buffer to store read data */
@@ -87,19 +72,19 @@ DRESULT disk_read (
 	{
 		case SD_CARD://SD卡
 			res=SD_ReadDisk(buff,sector,count);	 
-//		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
-//			{
-//				SD_SPI_SpeedLow();
-//				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
-//				SD_SPI_SpeedHigh();
-//			}
+		 	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+			{
+				SD_SPI_SpeedLow();
+				SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+				SD_SPI_SpeedHigh();
+			}
 			break;
 		default:
 			res=1; 
 	}
    //处理返回值，将SPI_SD_driver.c的返回值转成ff.c的返回值
     if(res==0x00)return RES_OK;	 
-    else return RES_ERROR;	 
+    else return RES_ERROR;	   
 }
 
 
@@ -107,11 +92,7 @@ DRESULT disk_read (
 /*-----------------------------------------------------------------------*/
 /* Write Sector(s)                                                       */
 /*-----------------------------------------------------------------------*/
-//写扇区
-//drv:磁盘编号0~9
-//*buff:发送数据首地址
-//sector:扇区地址
-//count:需要写入的扇区数
+
 #if FF_FS_READONLY == 0
 
 DRESULT disk_write (
