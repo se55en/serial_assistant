@@ -2,6 +2,7 @@
 #include "mmc_sd.h"			   
 #include "sd_spi.h"
 #include "mylcd.h"
+#include "delay.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK MiniSTM32开发板
@@ -323,6 +324,7 @@ u8 SD_ReadDisk(u8*buf,u32 sector,u8 cnt)
 //返回值:0,ok;其他,失败.
 u8 SD_WriteDisk(u8*buf,u32 sector,u8 cnt)
 {
+	delay_ms(1);
 	u8 r1;
 	if(SD_Type!=SD_TYPE_V2HC)sector *= 512;//转换为字节地址
 	if(cnt==1)

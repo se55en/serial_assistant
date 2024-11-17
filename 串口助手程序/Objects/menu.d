@@ -39,3 +39,5 @@
 .\objects\menu.o: System\myKey.h
 .\objects\menu.o: System\Serial.h
 .\objects\menu.o: D:\Keil5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\menu.o: System\stmflash.h
+.\objects\menu.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h

@@ -110,24 +110,30 @@ void mf_mytest(void)
 	u8 res_tf = 0;
 	while(SD_Initialize())//检测不到SD卡
 	{
-		myLCD_ShowString(X[10], Y[10], "SD Card Error!");
-		delay_ms(500);					
-		myLCD_ShowString(X[10], Y[10], "Please Check! ");
-		delay_ms(500);
+		SD_SPI_SpeedLow();
+		SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+		SD_SPI_SpeedHigh();
 	}
 	myLCD_ShowString(X[10], Y[10], "SD Card OK    ");
 	res_tf = f_mount(&fs_FatFs,"0:",1); //挂载SD卡 
 	sprintf(print_buf, "f_mount res = %d",res_tf);Gui_StrCenter(X[0],Y[2],BLACK, WHITE,(u8*)print_buf,16,0);
-	res_tf = f_open(&fs_file,"0:uart.txt",FA_OPEN_APPEND|FA_WRITE|FA_READ);
+	res_tf = f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE|FA_READ);
 	sprintf(print_buf, "f_open1 res = %d",res_tf);Gui_StrCenter(X[0],Y[3],BLACK, WHITE,(u8*)print_buf,16,0);
-	strcpy((char *)fs_buffer, "hello FATFS\n");
+	strcpy((char *)fs_buffer, "h");
 	res_tf=f_write(&fs_file, fs_buffer, strlen((char *)fs_buffer),&fs_bw);
 	sprintf(print_buf, "f_write res = %d",res_tf);Gui_StrCenter(X[0],Y[4],BLACK, WHITE,(u8*)print_buf,16,0);
 	res_tf = f_close(&fs_file);
 	sprintf(print_buf, "f_close res = %d",res_tf);Gui_StrCenter(X[0],Y[5],BLACK, WHITE,(u8*)print_buf,16,0);
-	res_tf = f_open(&fs_file,"0:uart.txt",FA_OPEN_APPEND|FA_WRITE|FA_READ);
+	res_tf = f_open(&fs_file,"0:usart_data.txt",FA_OPEN_APPEND|FA_WRITE|FA_READ);
 	sprintf(print_buf, "f_open2 res = %d",res_tf);Gui_StrCenter(X[0],Y[6],BLACK, WHITE,(u8*)print_buf,16,0);
+
+	res_tf=f_write(&fs_file, fs_buffer, strlen((char *)fs_buffer),&fs_bw);
+	sprintf(print_buf, "f_write res = %d",res_tf);Gui_StrCenter(X[0],Y[7],BLACK, WHITE,(u8*)print_buf,16,0);
 	
+	u32 size = f_size(&fs_file);
+	sprintf(print_buf, "size = %d",size);Gui_StrCenter(X[0],Y[8],BLACK, WHITE,(u8*)print_buf,16,0);
+	res_tf = f_close(&fs_file);
+	sprintf(print_buf, "f_close res = %d",res_tf);Gui_StrCenter(X[0],Y[9],BLACK, WHITE,(u8*)print_buf,16,0);
 }
 void mf_write(void)
 {

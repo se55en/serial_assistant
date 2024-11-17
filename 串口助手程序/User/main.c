@@ -10,17 +10,24 @@
 #include "mmc_sd.h"
 #include "mf.h"
 #include "stdio.h"
+#include "stmflash.h"
 
-u8 menu2_flag = 0;//子菜单标志位 
 int main(void)
 {
-	Serial_Init();//串口初始化
+	u8 menu2_flag = 0;//子菜单标志位 
+	SCB->VTOR = FLASH_BASE | 0x4000;
 	
+	Serial_Init();//串口初始化
+//	data_to_string(&serial, Flash_Buffer);
+//	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
+	STMFLASH_Read(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);//从flash读取数据
+	string_to_data(&serial, Flash_Buffer);
 	myKey_Init();//按键初始化
 	myLCD_Power_Init();
 	myLCD_Power_On();//LCD-VCC供电开关打开
 	myLCD_Init();
 	Menu_ShowHead();
+//	mf_mytest();
 	while(1)
 	{
 		process(serial.ProcessMode);//处理接收数据

@@ -29,7 +29,7 @@ void Menu_ShowHead(void)//头尾页面
 	BACK_COLOR = bctemp;
 	Show_Str(X[17],Y[1],WHITE, BLUE, "显示模式:",16,0);
 	Show_Str(X[26],Y[1],WHITE,BLUE, ShowMode[serial.ShowMode],16,0);
-	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:下 |K3:上 |K4:确定",16,0);
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:↑ |K3:上 |K4:确定",16,0);
 }
 
 u8 Menu(void)
@@ -42,7 +42,7 @@ u8 Menu(void)
 	Show_Str(X[10],Y[7],BLACK,WHITE, "显示模式",16,0);
 	Show_Str(X[10],Y[9],BLACK,WHITE, "模式",16,0);
 	myLCD_ShowString(X[8], Y[5], ">");
-	Show_Str(X[3],Y[19],WHITE, BLUE, "返回",16,0);
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:返回|K2:↓ |K3:↑ |K4:确定",16,0);
 	u8 result = ChooseDir(3);
 	if(result == 0)
 	{
@@ -85,6 +85,8 @@ u8 menu2_baud(void)
 			POINT_COLOR = fctemp;
 			BACK_COLOR = bctemp;
 			serial_Change13Baud(serial.Baud);//修改串口13波特率
+			data_to_string(&serial, Flash_Buffer);
+			STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 		}
 		return 0;
 	}
@@ -97,6 +99,8 @@ u8 menu2_baud(void)
 	POINT_COLOR = fctemp;
 	BACK_COLOR = bctemp;
 	serial_Change13Baud(serial.Baud);//修改串口13波特率
+	data_to_string(&serial, Flash_Buffer);
+	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 	return 0;
 }
 u8 menu2_showmode(void)
@@ -111,6 +115,8 @@ u8 menu2_showmode(void)
 	}
 	serial.ShowMode = dir_flag - 1;
 	Show_Str(X[26],Y[1],WHITE,BLUE, ShowMode[serial.ShowMode],16,0);
+	data_to_string(&serial, Flash_Buffer);
+	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 	return 0;
 }
 u8 menu2_processmode(void)
@@ -126,6 +132,8 @@ u8 menu2_processmode(void)
 	}
 	serial.ProcessMode = dir_flag - 1;
 	Show_Str(X[5],Y[0],WHITE,BLUE, ProcessMode[serial.ProcessMode],16,0);
+	data_to_string(&serial, Flash_Buffer);
+	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 	if(dir_flag == 2)
 	{
 		menu3_SendToPC();
@@ -282,11 +290,15 @@ void menu4_toPCBaud(void)
 		else
 		{
 			serial_Change2Baud(serial.toPCBaud);//修改串口2波特率
+			data_to_string(&serial, Flash_Buffer);
+			STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 		}
 		return;
 	}
 	serial.toPCBaud = Baud[dir_flag-1];
-	serial_Change2Baud(serial.toPCBaud);
+	serial_Change2Baud(serial.toPCBaud);//修改串口2波特率
+	data_to_string(&serial, Flash_Buffer);
+	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 }
 //返回，自定义波特率
 u32 user_define(void)
@@ -297,7 +309,7 @@ u32 user_define(void)
 	u8 place = 0;//位置标志
 	myLCD_ShowString(X[11], Y[7], "0000000");
 	LCD_ShowChar(X[11+place],Y[7],WHITE, BLUE, baudarr[place]+'0',16,0);
-	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:返回|K2:下 |K3:+  |K4:-   ",16,0);
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:返回|K2:→ |K3:+  |K4:-   ",16,0);
 	while(1)
 	{
 		KeyNum = myKey_GetNum();
@@ -312,7 +324,7 @@ u32 user_define(void)
 						baud += baudarr[i]*mypow(10, 6-i);
 					}
 					ClearMenu();
-					Show_Str(X[0],Y[19],WHITE, BLUE, "K1:返回|K2:下 |K3:上 |K4:确定",16,0);
+					Show_Str(X[0],Y[19],WHITE, BLUE, "K1:返回|K2:↓ |K3:↑ |K4:确定",16,0);
 					if(baud > 2000000)//波特率有误
 					{
 						return 0;

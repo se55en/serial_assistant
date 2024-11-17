@@ -40,8 +40,9 @@
 .\objects\process.o: System\delay.h
 .\objects\process.o: System\test.h
 .\objects\process.o: System\myKey.h
+.\objects\process.o: System\stmflash.h
+.\objects\process.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\process.o: .\FATFS\mf.h
 .\objects\process.o: .\FATFS\source\ff.h
 .\objects\process.o: .\FATFS\source\ffconf.h
-.\objects\process.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\process.o: .\System\mmc_sd.h

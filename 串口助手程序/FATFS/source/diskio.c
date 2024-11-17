@@ -138,7 +138,7 @@ DRESULT disk_ioctl (
 		    case CTRL_SYNC:
 				SD_CS=0;
 		        if(SD_WaitReady()==0)res = RES_OK; 
-		        else res = RES_ERROR;	  
+		        else res = RES_ERROR;			
 				SD_CS=1;
 		        break;	 
 		    case GET_SECTOR_SIZE:

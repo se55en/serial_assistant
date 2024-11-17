@@ -43,6 +43,7 @@ u8 ScreenDisplay(void)
 	u8 KeyNum = 0;
 	x = 0, y = 2;//光标位置
 	first_flag = 1;
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:   |K3:   |K4:清屏",16,0);
 	while(1)
 	{
 		KeyNum = myKey_GetNum();
@@ -51,6 +52,11 @@ u8 ScreenDisplay(void)
 			//清空显示区
 			LCD_Fill(0, Y[2], 240, 303,WHITE);
 			return 1;
+		}
+		if(KeyNum == 4)
+		{
+			//清空显示区
+			LCD_Fill(0, Y[2], 240, 303,WHITE);
 		}
 		if(serial.USART1_NoDisplayLen)//有没显示的数据，则显示开始显示数据
 		{
@@ -75,6 +81,8 @@ void SendToPC(void)
 {
 	u8 KeyNum = 0;
 	Show_Str(X[7],Y[10],BLACK, WHITE, "转发数据到电脑...",16,0);
+	sprintf(print_buf, "PC Baud = %7d",serial.toPCBaud);Gui_StrCenter(X[0],Y[9],BLACK, WHITE,(u8*)print_buf,16,0);
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:   |K3:   |K4:    ",16,0);
 	while(1)
 	{
 		//按键返回
@@ -112,7 +120,7 @@ void SendToSD(void)
 	u8 res_tf = 0;
 	u8 KeyNum = 0;
 	static u8 first_flag = 0;//第一次挂载
-	Show_Str(X[3],Y[19],WHITE, BLUE, "保存",16,0);
+	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:保存|K2:   |K3:   |K4:    ",16,0);
 	//sd卡操作
 	if(!first_flag)
 	{
@@ -156,8 +164,9 @@ void SendToSD(void)
 				LCD_Fill(0, Y[2], 240, 303,WHITE);//清空显示区
 				res_tf = f_sync(&fs_file);//保存文件
 				size = f_size(&fs_file);
-				sprintf(print_buf, "File Size = %d Byte", size);
-				Gui_StrCenter(X[0],Y[16],BLACK, WHITE, (u8*)print_buf,16,0);
+//				sprintf(print_buf, "File Size = %d Byte,res=%d", size,res_tf);
+				sprintf(print_buf, "File Size = %d", size);
+				Gui_StrCenter(X[0],Y[18],BLACK, WHITE, (u8*)print_buf,16,0);
 				return;
 			}
 		}
@@ -189,6 +198,7 @@ void SendToSD(void)
 		}
 	}
 }
+
 void my_f_write1(uint8_t *arr, uint16_t len)
 {
 	u8 res_tf = 0;

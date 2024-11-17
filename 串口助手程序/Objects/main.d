@@ -40,9 +40,10 @@
 .\objects\main.o: .\System\myKey.h
 .\objects\main.o: .\System\Serial.h
 .\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\main.o: .\System\stmflash.h
+.\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\System\process.h
 .\objects\main.o: .\FATFS\mf.h
 .\objects\main.o: .\FATFS\source\ff.h
 .\objects\main.o: .\FATFS\source\ffconf.h
-.\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\System\mmc_sd.h

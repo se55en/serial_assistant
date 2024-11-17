@@ -39,6 +39,7 @@
 ".\objects\serial.o"
 ".\objects\mmc_sd.o"
 ".\objects\sd_spi.o"
+".\objects\stmflash.o"
 ".\objects\main.o"
 ".\objects\stm32f10x_it.o"
 ".\objects\diskio.o"

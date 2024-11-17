@@ -6,6 +6,7 @@
 #include "myLCD.h"
 #include "myKey.h"
 #include "Serial.h"
+#include "stmflash.h"
 
 extern Serial_TypeDef serial;
 extern const u16 X[30];
