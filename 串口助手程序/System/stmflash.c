@@ -1,7 +1,7 @@
 #include "stmflash.h"
 #include "delay.h"
  
-u8 Flash_Buffer[16];
+u8 Flash_Buffer[22];
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -117,7 +117,9 @@ void Test_Write(u32 WriteAddr,u16 WriteData)
 
 void data_to_string(Serial_TypeDef* data, u8* str)
 {
-	sprintf((char *)str, "%7d%7d%1d%1d",data->Baud, data->toPCBaud, data->ShowMode, data->ProcessMode);
+	sprintf((char *)str, "%7d%7d%1d%1d%1d%1d%1d%1d%1d%1d",
+		data->Baud, data->toPCBaud, data->ShowMode, data->ProcessMode, 
+		data->DataBit, data->StopBit, data->ParityBit, data->PCDataBit, data->PCStopBit, data->PCParityBit);
 }
 void string_to_data(Serial_TypeDef* data, u8* str)
 {
@@ -145,7 +147,13 @@ void string_to_data(Serial_TypeDef* data, u8* str)
 	}
 	data->toPCBaud = baud;
 	data->ShowMode = *(pchar++)-0x30;
-	data->ProcessMode = *(pchar)-0x30;
+	data->ProcessMode = *(pchar++)-0x30;
+	data->DataBit = *(pchar++)-0x30;
+	data->StopBit = *(pchar++)-0x30;
+	data->ParityBit = *(pchar++)-0x30;
+	data->PCDataBit = *(pchar++)-0x30;
+	data->PCStopBit = *(pchar++)-0x30;
+	data->PCParityBit = *(pchar)-0x30;
 }
 
 

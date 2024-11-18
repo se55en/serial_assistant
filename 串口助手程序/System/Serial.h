@@ -9,6 +9,9 @@ extern char print_buf[512];
 typedef struct
 {
 	u32 Baud;
+	u8 DataBit;
+	u8 StopBit;
+	u8 ParityBit;
 	u8 ShowMode;//0为字符串，1为Hex
 	u8 ProcessMode;//0为屏幕显示，1为转发给pc，2为sd卡存储
 	
@@ -23,6 +26,9 @@ typedef struct
 	u8 USART3_RecvBuff[Recv_Max_Len];//串口3接收缓存区
 	
 	u32 toPCBaud;//发送给电脑的波特率
+	u8 PCDataBit;
+	u8 PCStopBit;
+	u8 PCParityBit;
 	u16 USART2_TxBuffLen;//串口2发送数据长度
 	u8 USART2_TxBuff[Recv_Max_Len];//串口2发送接数据缓存区
 	u8 USART2_TxFlag;//发送完成标志位
@@ -38,4 +44,5 @@ void uart3DmaClear(void);
 void serial_Change13Baud(u32 Baud);//修改串口13波特率
 void serial_Change2Baud(u32 Baud);
 void uart2SendArray(uint8_t *arr, uint16_t len);
+void serial_ChangeConfig(u8 flag);
 #endif

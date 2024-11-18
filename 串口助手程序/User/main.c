@@ -16,12 +16,12 @@ int main(void)
 {
 	u8 menu2_flag = 0;//子菜单标志位 
 	SCB->VTOR = FLASH_BASE | 0x4000;
-	
-	Serial_Init();//串口初始化
+//	Serial_Init();//串口初始化
 //	data_to_string(&serial, Flash_Buffer);
 //	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);
 	STMFLASH_Read(FLASH_SAVE_ADDR,(u16*)Flash_Buffer,SIZE);//从flash读取数据
 	string_to_data(&serial, Flash_Buffer);
+	Serial_Init();//串口初始化
 	myKey_Init();//按键初始化
 	myLCD_Power_Init();
 	myLCD_Power_On();//LCD-VCC供电开关打开
@@ -37,6 +37,7 @@ int main(void)
 			if(menu2_flag == 1)menu2_baud();
 			if(menu2_flag == 2)menu2_showmode();
 			if(menu2_flag == 3)menu2_processmode();
+			if(menu2_flag == 4)menu2_other(0);
 			if(menu2_flag == 0)break;
 		}
 	}

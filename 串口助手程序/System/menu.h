@@ -12,9 +12,10 @@ extern Serial_TypeDef serial;
 extern const u16 X[30];
 extern const u16 Y[20];
 u8 Menu(void);
-u8 menu2_baud(void);
-u8 menu2_showmode(void);
-u8 menu2_processmode(void);
+void menu2_baud(void);
+void menu2_showmode(void);
+void menu2_processmode(void);
+void menu2_other(u8 flag);
 void Menu_ShowHead(void);
 u32 user_define(void);
 

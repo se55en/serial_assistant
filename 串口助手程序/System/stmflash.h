@@ -5,7 +5,7 @@
 #include "gui.h"
 #include "stdio.h"
 
-extern u8 Flash_Buffer[16];
+extern u8 Flash_Buffer[22];
 #define SIZE sizeof(Flash_Buffer)	 	//数组长度
 #define FLASH_SAVE_ADDR  0X0800F000 	//设置FLASH 保存地址(必须为偶数，且其值要大于本代码所占用FLASH的大小+0X08000000)
 //////////////////////////////////////////////////////////////////////////////////	 

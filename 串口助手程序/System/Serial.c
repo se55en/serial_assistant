@@ -3,14 +3,21 @@
 
 char print_buf[512];
 Serial_TypeDef serial;
+void serial_ChangeConfig(u8 flag);
 
 void Serial_Init(void)
 {
 	//数据初始化
-	serial.toPCBaud = 115200;
-	serial.Baud = 115200;
-	serial.ShowMode = 0;
-	serial.ProcessMode = 2;
+//	serial.toPCBaud = 115200;
+//	serial.PCDataBit = 0;
+//	serial.PCParityBit = 0;
+//	serial.PCStopBit = 1;
+//	serial.Baud = 115200;
+//	serial.DataBit = 0;
+//	serial.ParityBit = 0;
+//	serial.StopBit = 1;
+//	serial.ShowMode = 0;
+//	serial.ProcessMode = 0;
 	serial.USART1_RecvBuffLen = 0;
 	serial.USART1_DisplayLen = 0;
 	serial.USART1_NoDisplayLen = 0;
@@ -57,31 +64,33 @@ void Serial_Init(void)
 	GPIO_Init(GPIOB, &GPIO_InitStructure);	
 /***********************************************************************/		
 	
-	//配置USART2
-	USART_InitTypeDef USART_InitStructure;
-	USART_InitStructure.USART_BaudRate = serial.toPCBaud;
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Tx;
-	USART_InitStructure.USART_Parity = USART_Parity_No;
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-	USART_Init(USART2, &USART_InitStructure);
-	//配置USART1
-	USART_InitStructure.USART_BaudRate = serial.Baud;
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Rx;
-	USART_InitStructure.USART_Parity = USART_Parity_No;
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-	USART_Init(USART1, &USART_InitStructure);
-	//配置USART3
-	USART_InitStructure.USART_BaudRate = serial.Baud;
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode = USART_Mode_Rx;
-	USART_InitStructure.USART_Parity = USART_Parity_No;
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-	USART_Init(USART3, &USART_InitStructure);
+//	//配置USART2
+//	USART_InitTypeDef USART_InitStructure;
+//	USART_InitStructure.USART_BaudRate = serial.toPCBaud;
+//	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+//	USART_InitStructure.USART_Mode = USART_Mode_Tx;
+//	USART_InitStructure.USART_Parity = USART_Parity_No;
+//	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+//	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+//	USART_Init(USART2, &USART_InitStructure);
+//	//配置USART1
+//	USART_InitStructure.USART_BaudRate = serial.Baud;
+//	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+//	USART_InitStructure.USART_Mode = USART_Mode_Rx;
+//	USART_InitStructure.USART_Parity = USART_Parity_No;
+//	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+//	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+//	USART_Init(USART1, &USART_InitStructure);
+//	//配置USART3
+//	USART_InitStructure.USART_BaudRate = serial.Baud;
+//	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+//	USART_InitStructure.USART_Mode = USART_Mode_Rx;
+//	USART_InitStructure.USART_Parity = USART_Parity_No;
+//	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+//	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+//	USART_Init(USART3, &USART_InitStructure);
+	serial_ChangeConfig(0);
+	serial_ChangeConfig(1);
 	
 ////DMA配置	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);  // 使能 DMA1 时钟
@@ -187,6 +196,66 @@ void serial_Change13Baud(u32 Baud)//修改串口13波特率
 	//配置USART3
 	USART_InitStructure.USART_BaudRate = Baud;
 	USART_Init(USART3, &USART_InitStructure);
+}
+void serial_ChangeConfig(u8 flag)//修改哪个串口的配置，13或2
+{	
+	struct usart_config{
+		u8 databit;
+		u8 stopbit;
+		u8 paritybit;
+		u32 baud;
+	}config;
+	if(flag)
+	{
+		config.databit = serial.PCDataBit;
+		config.stopbit = serial.PCStopBit;
+		config.paritybit = serial.PCParityBit;
+		config.baud = serial.toPCBaud;
+	}
+	else
+	{
+		config.databit = serial.DataBit;
+		config.stopbit = serial.StopBit;
+		config.paritybit = serial.ParityBit;
+		config.baud = serial.Baud;
+	}
+	USART_InitTypeDef USART_InitStructure;
+	//配置USART1
+	USART_InitStructure.USART_BaudRate = config.baud;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	switch(flag)
+	{
+		case 0:USART_InitStructure.USART_Mode = USART_Mode_Rx;break;//串口13，rx
+		case 1:USART_InitStructure.USART_Mode = USART_Mode_Tx;break;//串口2 ，tx
+	}
+	switch(config.paritybit)
+	{
+		case 0:USART_InitStructure.USART_Parity = USART_Parity_No;break;
+		case 1:USART_InitStructure.USART_Parity = USART_Parity_Even;break;
+		case 2:USART_InitStructure.USART_Parity = USART_Parity_Odd;break;
+	}
+	switch(config.databit)
+	{
+		case 0:USART_InitStructure.USART_WordLength = USART_WordLength_8b;break;
+		case 1:USART_InitStructure.USART_WordLength = USART_WordLength_9b;break;
+	}
+	switch(config.stopbit)
+	{
+		case 0:USART_InitStructure.USART_StopBits = USART_StopBits_0_5;break;
+		case 1:USART_InitStructure.USART_StopBits = USART_StopBits_1;break;
+		case 2:USART_InitStructure.USART_StopBits = USART_StopBits_1_5;break;
+		case 3:USART_InitStructure.USART_StopBits = USART_StopBits_2;break;
+	}
+	switch(flag)
+	{
+		case 0:
+			USART_Init(USART1, &USART_InitStructure);
+			USART_Init(USART3, &USART_InitStructure);
+			break;//串口13
+		case 1:			
+			USART_Init(USART2, &USART_InitStructure);
+			break;//串口2 
+	}
 }
 void serial_Change2Baud(u32 Baud)//修改串口2波特率
 {
