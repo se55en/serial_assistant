@@ -14,6 +14,8 @@
 
 int main(void)
 {
+	SystemInit();//初始化RCC 设置系统主频为72MHZ
+	delay_init(72);	     //延时初始化
 	u8 menu2_flag = 0;//子菜单标志位 
 	SCB->VTOR = FLASH_BASE | 0x4000;
 //	Serial_Init();//串口初始化
@@ -26,8 +28,9 @@ int main(void)
 	myLCD_Power_Init();
 	myLCD_Power_On();//LCD-VCC供电开关打开
 	myLCD_Init();
+	myLCD_Init();
+	Serial_Init();//串口初始化
 	Menu_ShowHead();
-//	mf_mytest();
 	while(1)
 	{
 		process(serial.ProcessMode);//处理接收数据

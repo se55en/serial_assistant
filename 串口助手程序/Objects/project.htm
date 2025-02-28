@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Mon Nov 18 17:25:29 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Sun Feb 23 20:29:46 2025
 <BR><P>
 <H3>Maximum Stack Usage =        976 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1319,7 +1319,7 @@ Global Symbols
 <P><STRONG><a name="[a]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[ad]"></a>ScreenDisplay</STRONG> (Thumb, 174 bytes, Stack size 24 bytes, process.o(i.ScreenDisplay))
+<P><STRONG><a name="[ad]"></a>ScreenDisplay</STRONG> (Thumb, 192 bytes, Stack size 24 bytes, process.o(i.ScreenDisplay))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = ScreenDisplay &rArr; Show2 &rArr; ShowHead2 &rArr; myLCD_ShowString &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_DrawPoint &rArr; LCD_SetCursor &rArr; LCD_SetWindows &rArr; LCD_WriteRAM_Prepare &rArr; LCD_WR_REG
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart3DmaClear
@@ -1486,7 +1486,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myLCD_Init
+<BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(.text)
 </UL>
@@ -1578,7 +1578,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_CLKSourceConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myLCD_Init
+<BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[81]"></a>delay_ms</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, delay.o(i.delay_ms))
@@ -1766,11 +1766,12 @@ Global Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkfs
 </UL>
 
-<P><STRONG><a name="[49]"></a>main</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[49]"></a>main</STRONG> (Thumb, 130 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 976 + Unknown Stack Size
 <LI>Call Chain = main &rArr; process &rArr; SendToSD &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_WriteDisk &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; SD_SPI_ReadWriteByte &rArr; SPI2_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Serial_Init
+<BR>[Calls]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Serial_Init
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myKey_Init
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;menu2_showmode
@@ -1782,6 +1783,7 @@ Global Symbols
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myLCD_Power_On
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myLCD_Power_Init
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myLCD_Init
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;string_to_data
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STMFLASH_Read
 </UL>
@@ -1933,12 +1935,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[109]"></a>myLCD_Init</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, mylcd.o(i.myLCD_Init))
+<P><STRONG><a name="[109]"></a>myLCD_Init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, mylcd.o(i.myLCD_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = myLCD_Init &rArr; LCD_Init &rArr; SPI1_Init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
+<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>

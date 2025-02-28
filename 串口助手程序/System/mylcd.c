@@ -11,8 +11,6 @@ const u16 Y[20]={
 };
 void myLCD_Init(void)
 {
-	SystemInit();//初始化RCC 设置系统主频为72MHZ
-	delay_init(72);	     //延时初始化
 	LCD_Init();	   //液晶屏初始化
 }
 

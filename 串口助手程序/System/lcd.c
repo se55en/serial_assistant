@@ -56,6 +56,7 @@
 #include "stdlib.h"
 #include "delay.h"	 
 #include "spi.h"
+#include "PC13LED.h"
 
 	   
 //管理LCD重要参数
@@ -318,7 +319,7 @@ void LCD_Init(void)
 	LCD_WR_REG(0x11); //Exit Sleep
 	delay_ms(120);
 	LCD_WR_REG(0x29); //display on		
-
+	
   LCD_direction(USE_HORIZONTAL);//设置LCD显示方向
 	LCD_LED=1;//点亮背光	 
 	LCD_Clear(WHITE);//清全屏白色

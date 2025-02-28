@@ -8,6 +8,7 @@
 extern const u16 X[30];
 extern const u16 Y[20];
 
+int adgf;
 
 void process(u8 mode);
 u8 AddX(u8 add);

@@ -33,3 +33,4 @@
 .\objects\lcd.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\lcd.o: System\delay.h
 .\objects\lcd.o: System\spi.h
+.\objects\lcd.o: System\PC13LED.h

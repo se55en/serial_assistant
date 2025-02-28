@@ -14,7 +14,7 @@ typedef struct
 #define Y_MAX 		18
 
 u8 x = 0, y = 2;//光标位置
-u8 first_flag = 1;//第一次不用回车换行
+u8 new_line = 1;//换行标志位
 //屏幕显示相关函数
 u8 ScreenDisplay(void);
 void ShowHead1(void);
@@ -42,7 +42,7 @@ u8 ScreenDisplay(void)
 {
 	u8 KeyNum = 0;
 	x = 0, y = 2;//光标位置
-	first_flag = 1;
+	new_line = 1;
 	Show_Str(X[0],Y[19],WHITE, BLUE, "K1:菜单|K2:   |K3:   |K4:清屏",16,0);
 	while(1)
 	{
@@ -56,6 +56,9 @@ u8 ScreenDisplay(void)
 		if(KeyNum == 4)
 		{
 			//清空显示区
+			x = 0;
+			y = 2;
+			new_line = 1;
 			LCD_Fill(0, Y[2], 240, 303,WHITE);
 		}
 		if(serial.USART1_NoDisplayLen)//有没显示的数据，则显示开始显示数据
@@ -228,9 +231,9 @@ void my_f_write2(uint8_t *arr, uint16_t len)
 //显示数据头
 void ShowHead1(void)
 {
-	if(first_flag == 1)
+	if(new_line == 1)
 	{
-		first_flag = 0;
+		new_line = 0;
 	}
 	else
 	{
@@ -243,9 +246,9 @@ void ShowHead1(void)
 }
 void ShowHead2(void)
 {
-	if(first_flag == 1)
+	if(new_line == 1)
 	{
-		first_flag = 0;
+		new_line = 0;
 	}
 	else
 	{
